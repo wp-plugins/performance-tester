@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or	die( 'Script kiddy uh?' );
 Plugin Name: Performance Tester
 Plugin URI: https://www.dareboost.com
 Description: Analyze your web page and get a quality and performance report. 
-Version: 0.1.2
+Version: 0.1.3
 Author: Anthony Fourneau
 Author URI: https://www.dareboost.com
 License: Apache License v2
@@ -143,10 +143,16 @@ class Performance_Tester{
 	public function dbwp_new_analysis(){
 		// get the lang of the wordpress
 		$extractedLang = explode('-',get_bloginfo('language'));
+		$lang = $extractedLang[0];
+		// if the lang is not "fr" (french) we set it to "en" (english)
+		if(strcasecmp($lang, "fr") != 0){
+			$lang="en";
+		}
+		
 		// get the url of the home page
 		$data = array(
 				"url" => get_site_url(),
-				"lang" => $extractedLang[0]	
+				"lang" => $lang	
 		);
 		
 		// Launch the analysis through the DareBoost API
